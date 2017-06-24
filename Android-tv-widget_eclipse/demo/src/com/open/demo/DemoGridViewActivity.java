@@ -37,6 +37,7 @@ import android.widget.Toast;
 import com.open.androidtvwidget.bridge.EffectNoDrawBridge;
 import com.open.androidtvwidget.view.GridViewTV;
 import com.open.androidtvwidget.view.MainUpView;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,12 +55,16 @@ public class DemoGridViewActivity extends Activity {
     private GridViewAdapter mAdapter;
     private int mSavePos = -1;
     private int mCount = 50;
+    
+    private Context mContext;
+    private final String mPageName = "DemoGridViewActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.demo_grid_view);
-
+        mContext = DemoGridViewActivity.this;
+        
         gridView = (GridViewTV) findViewById(R.id.gridView);
         mainUpView1 = (MainUpView) findViewById(R.id.mainUpView1);
         // 建议使用 NoDraw.
@@ -220,5 +225,20 @@ public class DemoGridViewActivity extends Activity {
     }
 
     ///// Adapter 类 end end //////////
+    
+    
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart(mPageName);
+        MobclickAgent.onResume(mContext);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd(mPageName);
+        MobclickAgent.onPause(mContext);
+    }
 
 }

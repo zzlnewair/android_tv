@@ -2,6 +2,7 @@ package com.open.demo;
 
 import android.animation.Animator;
 import android.app.Activity;
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.RectF;
 import android.graphics.Typeface;
@@ -23,6 +24,7 @@ import com.open.androidtvwidget.view.OpenTabHost.OnTabSelectListener;
 import com.open.androidtvwidget.view.SmoothHorizontalScrollView;
 import com.open.androidtvwidget.view.TextViewWithTTF;
 import com.open.demo.adapter.OpenTabTitleAdapter;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -237,4 +239,20 @@ public class DemoViewPagerActivity extends Activity implements OnTabSelectListen
 
     }
 
+    
+    private Context mContext = DemoViewPagerActivity.this;
+    private final String mPageName = "DemoViewPagerActivity";
+	@Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart(mPageName);
+        MobclickAgent.onResume(mContext);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd(mPageName);
+        MobclickAgent.onPause(mContext);
+    }
 }

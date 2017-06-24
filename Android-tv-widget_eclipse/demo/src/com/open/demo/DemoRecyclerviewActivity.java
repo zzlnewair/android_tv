@@ -29,6 +29,7 @@ import com.open.demo.adapter.RecyclerViewPresenter;
 import com.open.demo.mode.LeanbackTestData;
 import com.open.demo.mode.Movie;
 import com.open.demo.mode.TestMoviceListPresenter;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -383,6 +384,23 @@ public class DemoRecyclerviewActivity extends Activity implements RecyclerViewTV
             mRecyclerViewBridge.setFocusView(itemView, 1.2f);
             oldView = itemView;
         }
+    }
+    
+    
+   // private Context mContext = DemoRecyclerviewActivity.this;
+    private final String mPageName = "DemoRecyclerviewActivity";
+	@Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart(mPageName);
+        MobclickAgent.onResume(mContext);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd(mPageName);
+        MobclickAgent.onPause(mContext);
     }
 
 }

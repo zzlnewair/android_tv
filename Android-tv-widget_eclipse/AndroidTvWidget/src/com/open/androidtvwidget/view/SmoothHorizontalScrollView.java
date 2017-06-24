@@ -36,7 +36,11 @@ public class SmoothHorizontalScrollView extends HorizontalScrollView {
     public void setFadingEdge(int fadingEdge) {
         this.mFadingEdge = fadingEdge;
     }
-
+/*
+ * 
+ * Compute the amount to scroll in the X direction in order to get a rectangle completely on the screen 
+ * (or, if taller than the screen, at least the first screen size chunk of it).
+ */
     @Override
     protected int computeScrollDeltaToGetChildRectOnScreen(Rect rect) {
         if (getChildCount() == 0)

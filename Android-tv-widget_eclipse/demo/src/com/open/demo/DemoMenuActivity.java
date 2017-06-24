@@ -18,6 +18,7 @@ import com.open.androidtvwidget.utils.OPENLOG;
 import com.open.androidtvwidget.view.MainUpView;
 import com.open.androidtvwidget.leanback.adapter.GeneralAdapter;
 import com.open.demo.menu.TreeMenuPresenter;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * 菜单DEMO测试.
@@ -26,7 +27,7 @@ import com.open.demo.menu.TreeMenuPresenter;
  */
 public class DemoMenuActivity extends Activity implements OnClickListener {
 
-    private Context mContext;
+  
     OpenMenu mOpenMenu;
     RecyclerViewTV mRecyclerView;
 
@@ -41,7 +42,7 @@ public class DemoMenuActivity extends Activity implements OnClickListener {
 //		findViewById(R.id.content11).setBackgroundResource(R.drawable.main_bg);
         findViewById(R.id.button1).setOnClickListener(this);
         findViewById(R.id.button2).setOnClickListener(this);
-        mContext = DemoMenuActivity.this;
+      
         initAllMenu();
     }
 
@@ -122,4 +123,21 @@ public class DemoMenuActivity extends Activity implements OnClickListener {
                 break;
         }
     }
+    
+
+	    private Context mContext = DemoMenuActivity.this;
+	    private final String mPageName = "DemoMenuActivity";
+		@Override
+	    public void onResume() {
+	        super.onResume();
+	        MobclickAgent.onPageStart(mPageName);
+	        MobclickAgent.onResume(mContext);
+	    }
+
+	    @Override
+	    public void onPause() {
+	        super.onPause();
+	        MobclickAgent.onPageEnd(mPageName);
+	        MobclickAgent.onPause(mContext);
+	    }
 }

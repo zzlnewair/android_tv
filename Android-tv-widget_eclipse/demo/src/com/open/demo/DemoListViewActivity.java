@@ -7,8 +7,10 @@ import com.open.androidtvwidget.bridge.EffectNoDrawBridge;
 import com.open.androidtvwidget.utils.Utils;
 import com.open.androidtvwidget.view.ListViewTV;
 import com.open.androidtvwidget.view.MainUpView;
+import com.umeng.analytics.MobclickAgent;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
@@ -127,5 +129,22 @@ public class DemoListViewActivity extends Activity {
 			public TextView title;
 		}
 	}
+
+
+    private Context mContext = DemoListViewActivity.this;
+    private final String mPageName = "DemoListViewActivity";
+	@Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart(mPageName);
+        MobclickAgent.onResume(mContext);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd(mPageName);
+        MobclickAgent.onPause(mContext);
+    }
 
 }

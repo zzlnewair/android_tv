@@ -1,6 +1,7 @@
 package com.open.demo;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.RectF;
 import android.os.Bundle;
@@ -18,6 +19,8 @@ import com.open.androidtvwidget.utils.Utils;
 import com.open.androidtvwidget.view.FrameMainLayout;
 import com.open.androidtvwidget.view.MainUpView;
 import com.open.androidtvwidget.view.SmoothHorizontalScrollView;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.analytics.MobclickAgent.EScenarioType;
 
 /**
  * DEMO测试.
@@ -30,6 +33,8 @@ public class MainActivity extends Activity implements OnClickListener {
     OpenEffectBridge mOpenEffectBridge;
     View mOldFocus; // 4.3以下版本需要自己保存.
 
+    private Context mContext;
+    private final String mPageName = "MainActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +42,15 @@ public class MainActivity extends Activity implements OnClickListener {
         // getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
         // WindowManager.LayoutParams.FLAG_FULLSCREEN);
         // this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        
+        mContext =MainActivity.this;
+        
+        
+        MobclickAgent.setDebugMode(true);
+        MobclickAgent.openActivityDurationTrack(false);
+        MobclickAgent.setScenarioType(mContext, EScenarioType.E_UM_ANALYTICS_OEM);// E_UM_ANALYTICS_OEM
+        
+        
         setContentView(R.layout.test_main);
         SmoothHorizontalScrollView hscroll_view = (SmoothHorizontalScrollView) findViewById(R.id.hscroll_view);
         hscroll_view.setFadingEdge((int)getDimension(R.dimen.w_100)); // 滚动窗口也需要适配.
@@ -197,6 +211,20 @@ public class MainActivity extends Activity implements OnClickListener {
         mainUpView1.setEffectBridge(effectNoDrawBridge); // 4.3以下版本边框移动.
         mainUpView1.setUpRectResource(R.drawable.white_light_10); // 设置移动边框的图片.
         mainUpView1.setDrawUpRectPadding(rectf); // 边框图片设置间距.
+    }
+    
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart(mPageName);
+        MobclickAgent.onResume(mContext);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd(mPageName);
+        MobclickAgent.onPause(mContext);
     }
 
 }
