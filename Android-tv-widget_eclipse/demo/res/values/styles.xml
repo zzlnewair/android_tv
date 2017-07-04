@@ -20,5 +20,20 @@
         <item name="android:windowFullscreen">true</item>
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
+    
+      <style name="ListViewHorizontal">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">300dp</item>
+        <!-- not namespace prefix -->
+        <item name="item_width">200dp</item>
+        <item name="item_height">200dp</item>
+        <item name="spacing">20dp</item>
+        <item name="gravity">center</item>
+        <item name="bg_color">#323232</item>
+        <item name="left_offset">130dp</item>
+        <item name="right_offset">130dp</item>
+    </style>
+    
+      
 
 </resources>

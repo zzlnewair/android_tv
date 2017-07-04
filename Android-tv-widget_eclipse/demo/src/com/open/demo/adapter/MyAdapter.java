@@ -1,22 +1,23 @@
 package com.open.demo.adapter;
 
+import java.util.List;
+
 import com.open.demo.R;
+import com.open.demo.mode.MovieBean;
+import com.squareup.picasso.Picasso;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-/**
- * 作者:evilbinary on 2/20/16.
- * 邮箱:rootdebug@163.com
- */
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     // 数据集
-    private String[] mDataset;
+	private List<MovieBean> mDataset;
     private Context mContex;
     private int id;
     private View.OnFocusChangeListener mOnFocusChangeListener;
@@ -25,19 +26,19 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         public void onBind(View view,int i);
     };
 
-    public MyAdapter(Context context, String[] dataset) {
+    public MyAdapter(Context context,  List<MovieBean>dataset ) {
         super();
         mContex = context;
         mDataset = dataset;
     }
-    public MyAdapter(Context context, String[] dataset,int id) {
+    public MyAdapter(Context context,  List<MovieBean>  dataset,int id) {
         super();
         mContex = context;
         mDataset = dataset;
         this.id=id;
     }
 
-    public MyAdapter(Context context, String[] dataset,int id,View.OnFocusChangeListener onFocusChangeListener) {
+    public MyAdapter(Context context, List<MovieBean>  dataset,int id,View.OnFocusChangeListener onFocusChangeListener) {
         super();
         mContex = context;
         mDataset = dataset;
@@ -63,7 +64,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        viewHolder.mTextView.setText(mDataset[i]);
+        viewHolder.mTextView.setText(mDataset.get(i).getTitle());
+       // viewHolder.mImageView.setImageBitmap(mDataset.get(i).getPoster());
+      
+        Picasso.with(viewHolder.mImageView.getContext()).load(mDataset.get(i).getPoster()).into(viewHolder.mImageView);
+        
         viewHolder.itemView.setTag(i);
         viewHolder.itemView.setOnFocusChangeListener(mOnFocusChangeListener);
         if(onBindListener!=null){
@@ -73,22 +78,21 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return mDataset.length;
+        return mDataset.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView mTextView;
 
+        public ImageView mImageView ;
         public ViewHolder(View itemView) {
             super(itemView);
             mTextView = (TextView) itemView.findViewById(R.id.textView);
-
+            mImageView =(ImageView)itemView.findViewById(R.id.poster);
         }
     }
 
-    public void setData(String[] data){
-        this.mDataset=data;
-    }
+   
 
 }

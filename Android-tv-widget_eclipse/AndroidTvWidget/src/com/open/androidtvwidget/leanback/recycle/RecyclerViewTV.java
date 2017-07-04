@@ -61,7 +61,7 @@ public class RecyclerViewTV extends RecyclerView implements PrvInterface {
         setClipChildren(false);
         setClipToPadding(false);
 
-        setClickable(false);
+        setClickable(true);
         setFocusable(true);
         setFocusableInTouchMode(true);
         //
@@ -96,6 +96,8 @@ public class RecyclerViewTV extends RecyclerView implements PrvInterface {
                     }
                 }
             }
+
+			
         };
     }
 

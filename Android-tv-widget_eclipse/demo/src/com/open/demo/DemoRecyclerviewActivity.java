@@ -184,7 +184,7 @@ public class DemoRecyclerviewActivity extends Activity implements RecyclerViewTV
         gridlayoutManager.setOrientation(orientation);
         mRecyclerView.setLayoutManager(gridlayoutManager);
         mRecyclerView.setFocusable(false);
-        mRecyclerView.setSelectedItemAtCentered(true); // 设置item在中间移动.
+      //  mRecyclerView.setSelectedItemAtCentered(true); // 设置item在中间移动.
         mRecyclerViewPresenter = new RecyclerViewPresenter(25);
         mGeneralAdapter = new GeneralAdapter(mRecyclerViewPresenter);
         mRecyclerView.setAdapter(mGeneralAdapter);
@@ -198,6 +198,8 @@ public class DemoRecyclerviewActivity extends Activity implements RecyclerViewTV
                 moreHandler.sendMessageDelayed(msg, 3000);
             }
         });
+        
+        mRecyclerView.setDefaultSelect(0);
     }
 
     ///////////////////////////////////////////////////////////////

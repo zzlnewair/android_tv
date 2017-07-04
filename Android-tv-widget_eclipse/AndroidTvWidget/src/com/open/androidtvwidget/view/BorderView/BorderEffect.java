@@ -7,7 +7,7 @@ import android.animation.PropertyValuesHolder;
 import android.animation.ValueAnimator;
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.open.androidtvwidget.utils.LogUtils;
 import com.open.androidtvwidget.view.BorderView.BorderView.Effect;
 
 
@@ -109,7 +110,7 @@ public class BorderEffect implements Effect {
 		public void onFocusChanged(View oldFocus, View newFocus) {
 
 			try {
-				Log.d(TAG, "onFocusChanged==>" + oldFocus + " " + newFocus);
+				//Log.d(TAG, "onFocusChanged==>" + oldFocus + " " + newFocus);
 				if (oldFocus == null) {
 					for (int i = 0; i < attacheViews.size(); i++) {
 						View view = attacheViews.get(i);
@@ -317,7 +318,7 @@ public class BorderEffect implements Effect {
 									.getAnimatedValue("translationX");
 							float translationY = (float) animation
 									.getAnimatedValue("translationY");
-							// Log.d(TAG,"width:"+width+" height:"+height+" translationX:"+translationX+" translationY:"+translationY);
+							//LogUtils.i(TAG,"width:"+width+" height:"+height+" translationX:"+translationX+" translationY:"+translationY);
 							View view = (View) scaleAnimator.getTarget();
 							assert view != null;
 							int w = view.getLayoutParams().width;
@@ -383,11 +384,11 @@ public class BorderEffect implements Effect {
 
 			if (oldFocus != null && newFocus != null) {
 				if (oldFocus.getParent() != newFocus.getParent()) {
-					Log.d(TAG,
-							"=====>"
-									+ attacheViews.indexOf(newFocus.getParent())
-									+ "="
-									+ attacheViews.indexOf(oldFocus.getParent()));
+//					Log.d(TAG,
+//							"=====>"
+//									+ attacheViews.indexOf(newFocus.getParent())
+//									+ "="
+//									+ attacheViews.indexOf(oldFocus.getParent()));
 
 					if ((attacheViews.indexOf(newFocus.getParent()) < 0)
 							|| (attacheViews.indexOf(oldFocus.getParent()) < 0 && attacheViews
@@ -397,11 +398,11 @@ public class BorderEffect implements Effect {
 						animatorSet.playTogether(getScaleAnimator(oldFocus,
 								false));
 						animatorSet.setDuration(0).start();
-						Log.d(TAG, "=====>1");
+						//Log.d(TAG, "=====>1");
 						scope.isVisible = false;
 						return scope;
 					} else {
-						Log.d(TAG, "=====>2");
+						//Log.d(TAG, "=====>2");
 
 						mTarget.setVisibility(View.VISIBLE);
 					}
@@ -412,14 +413,14 @@ public class BorderEffect implements Effect {
 				} else {
 					if (attacheViews.indexOf(newFocus.getParent()) < 0) {
 						mTarget.setVisibility(View.INVISIBLE);
-						Log.d(TAG, "=====>3");
+						//Log.d(TAG, "=====>3");
 						scope.isVisible = false;
 						return scope;
 					}
-					Log.d(TAG, "=====>4");
+					//Log.d(TAG, "=====>4");
 
 				}
-				Log.d(TAG, "=====>5");
+				//Log.d(TAG, "=====>5");
 			}
 			mTarget.setVisibility(View.VISIBLE);
 		} catch (Exception ex) {
@@ -431,7 +432,7 @@ public class BorderEffect implements Effect {
 	@Override
 	public void onFocusChanged(View target, View oldFocus, View newFocus) {
 		try {
-			Log.d(TAG, "onFocusChanged:" + oldFocus + "=" + newFocus);
+			//Log.d(TAG, "onFocusChanged:" + oldFocus + "=" + newFocus);
 
 			if (newFocus == null && attacheViews.indexOf(newFocus) >= 0) {
 				return;
@@ -446,7 +447,7 @@ public class BorderEffect implements Effect {
 			lastFocus = newFocus;
 			oldLastFocus = oldFocus;
 			mTarget = target;
-			Log.d(TAG, "onFocusChanged:111111111" + oldFocus + "=" + newFocus);
+			//Log.d(TAG, "onFocusChanged:111111111" + oldFocus + "=" + newFocus);
 
 			VisibleScope scope = checkVisibleScope(oldFocus, newFocus);
 			if (!scope.isVisible) {
@@ -460,7 +461,7 @@ public class BorderEffect implements Effect {
 			if (isScrolling || newFocus == null || newFocus.getWidth() <= 0
 					|| newFocus.getHeight() <= 0)
 				return;
-			Log.d(TAG, "onFocusChanged:2222222222" + oldFocus + "=" + newFocus);
+			//Log.d(TAG, "onFocusChanged:2222222222" + oldFocus + "=" + newFocus);
 
 			mAnimatorList.clear();
 
@@ -643,7 +644,7 @@ public class BorderEffect implements Effect {
 				if (newFocus == null)
 					return;
 				newFocus = view;
-				Log.d(TAG, "onItemSelected");
+				//Log.d(TAG, "onItemSelected");
 
 				Rect rect = new Rect();
 				view.getLocalVisibleRect(rect);
@@ -687,7 +688,7 @@ public class BorderEffect implements Effect {
 
 		@Override
 		public void onNothingSelected(AdapterView<?> parent) {
-			Log.d(TAG, "onNothingSelected");
+			//Log.d(TAG, "onNothingSelected");
 			if (onItemSelectedListener != null) {
 				onItemSelectedListener.onNothingSelected(parent);
 			}
