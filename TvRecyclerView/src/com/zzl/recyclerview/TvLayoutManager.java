@@ -176,13 +176,13 @@ public abstract class TvLayoutManager extends LayoutManager {
         }
     }
     
-    // add by zhousuqiang
+    // add by zzl
     public boolean cannotScrollBackward(int delta) {
         return  (getFirstVisiblePosition() == 0 &&
                 mLayoutStart >= getStartWithPadding() && delta <= 0);
     }
 
-    // add by zhousuqiang
+    // add by zzl
     public boolean cannotScrollForward(int delta) {
         return (getFirstVisiblePosition() + getChildCount() == getItemCount() &&
                 mLayoutEnd <= getEndWithPadding() && delta >= 0);
@@ -604,7 +604,7 @@ public abstract class TvLayoutManager extends LayoutManager {
         if (mPendingSavedState != null) {
             return 0;
         }
-        // add by zhousuqiang 修复glide加载图片焦点错位问题
+        // add by zzl 修复glide加载图片焦点错位问题
         if(mPendingScrollOffset == 0 && getFirstVisiblePosition() > 0) {
             return mLayoutStart;
         }
@@ -691,7 +691,7 @@ public abstract class TvLayoutManager extends LayoutManager {
     public void onAttachedToWindow(RecyclerView view) {
         super.onAttachedToWindow(view);
         mRecyclerView = view;
-        // add by zhousuqiang 修复第一次获取焦点时leftPadding会自动增加
+        // add by zzl 修复第一次获取焦点时leftPadding会自动增加
         if(mLayoutStart == 0) {
             mLayoutStart = getStartWithPadding();
         }

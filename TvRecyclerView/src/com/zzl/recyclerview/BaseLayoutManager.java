@@ -533,11 +533,11 @@ public abstract class BaseLayoutManager extends TvLayoutManager {
         return null;
     }
     
-    // add by zhousuqiang
+    // add by zzl
     private int mVerticalSpacingWithMargins = 0;
     private int mHorizontalSpacingWithMargins = 0;
     /**
-     * add by zhousuqiang
+     * add by zzl
      * 通过Margins来设置布局的横纵间距
      * @param verticalSpacing
      * @param horizontalSpacing
@@ -549,7 +549,7 @@ public abstract class BaseLayoutManager extends TvLayoutManager {
     
     @Override
     public boolean checkLayoutParams(LayoutParams lp) {
-        // add by zhousuqiang
+        // add by zzl
         if(mVerticalSpacingWithMargins > 0 || mHorizontalSpacingWithMargins > 0) {
             lp.setMargins(
                     mHorizontalSpacingWithMargins/2,
