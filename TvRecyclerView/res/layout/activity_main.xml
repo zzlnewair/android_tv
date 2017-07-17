@@ -6,7 +6,13 @@
    
     tools:context="com.zzl.recyclerview.MainActivity" >
 
-     
+        <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:clipChildren="false"
+        android:clipToPadding="false">
+        
     <com.zzl.recyclerview.TvRecyclerView
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/trv"
@@ -18,5 +24,13 @@
             
         android:padding="10dp"
      /> 
+   
+    <com.zzl.recyclerview.animeffect.MainUpView
+        android:id="@+id/mainUpView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    
+     </FrameLayout>
+    
     
 </RelativeLayout>
