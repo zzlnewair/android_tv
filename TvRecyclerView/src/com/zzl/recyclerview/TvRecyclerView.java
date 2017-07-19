@@ -17,19 +17,18 @@ import android.support.v7.widget.LinearSmoothScroller;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.FocusFinder;
 import android.view.KeyEvent;
 import android.view.View;
-
-import com.zzl.recyclerview.BaseLayoutManager;
 import com.zzl.recyclerview.R;
-import com.zzl.recyclerview.TvLayoutManager;
+
 
 import java.lang.reflect.Constructor;
 
 public class TvRecyclerView extends RecyclerView {
 
-	private static final String LOGTAG = TvRecyclerView.class.getSimpleName()+ ":::";
+	private static final String TAG = TvRecyclerView.class.getSimpleName()+ ":::";
 	
 	private static final int DEFAULT_SELECTED_ITEM_OFFSET = 40;
 	private static final int DEFAULT_LOAD_MORE_BEFOREHAND_COUNT = 4;
@@ -41,7 +40,7 @@ public class TvRecyclerView extends RecyclerView {
     private int mSelectedItemOffsetEnd;
     
     private boolean mSelectedItemCentered;
-    private boolean mIsBaseLayoutManager;
+   // private boolean mIsBaseLayoutManager;
     private boolean mIsInterceptKeyEvent;
     private boolean mIsSelectFirstVisiblePosition;
    
@@ -61,10 +60,6 @@ public class TvRecyclerView extends RecyclerView {
     
     private ItemListener mItemListener;
 
-    private static final Class<?>[] sConstructorSignature = new Class[] {
-            Context.class, AttributeSet.class};
-
-    private final Object[] sConstructorArgs = new Object[2];
 
 
 	private Handler mHandler = new Handler() {
@@ -98,22 +93,7 @@ public class TvRecyclerView extends RecyclerView {
         super(context, attrs, defStyle);
         
         init(context);
-        
-        final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.TvRecyclerView, defStyle, 0);
-
-        final String name = a.getString(R.styleable.TvRecyclerView_tv_layoutManager);
-        if (!TextUtils.isEmpty(name)) {
-            loadLayoutManagerFromName(context, attrs, name);
-        }
-        mSelectedItemCentered = a.getBoolean(R.styleable.TvRecyclerView_tv_selectedItemIsCentered, false);
-        mIsInterceptKeyEvent = a.getBoolean(R.styleable.TvRecyclerView_tv_isInterceptKeyEvent, false);
-       
-        mIsSelectFirstVisiblePosition = a.getBoolean(R.styleable.TvRecyclerView_tv_isSelectFirstVisiblePosition, false);
-        mLoadMoreBeforehandCount = a.getInt(R.styleable.TvRecyclerView_tv_loadMoreBeforehandCount, DEFAULT_LOAD_MORE_BEFOREHAND_COUNT);
-        mSelectedItemOffsetStart = a.getDimensionPixelOffset(R.styleable.TvRecyclerView_tv_selectedItemOffsetStart, DEFAULT_SELECTED_ITEM_OFFSET);
-        mSelectedItemOffsetEnd = a.getDimensionPixelOffset(R.styleable.TvRecyclerView_tv_selectedItemOffsetEnd, DEFAULT_SELECTED_ITEM_OFFSET);
-        
-        a.recycle();
+      
     }
 
 	private void init(Context context) {
@@ -179,31 +159,7 @@ public class TvRecyclerView extends RecyclerView {
         };
     }
     
-    private void loadLayoutManagerFromName(Context context, AttributeSet attrs, String name) {
-        try {
-            final int dotIndex = name.indexOf('.');
-            if (dotIndex == -1) {
-                name = "com.zzl.recyclerview." + name;
-            } else if (dotIndex == 0) {
-                final String packageName = context.getPackageName();
-                name = packageName + "." + name;
-            }
-
-            Class<? extends TvLayoutManager> clazz =
-                    context.getClassLoader().loadClass(name).asSubclass(TvLayoutManager.class);
-
-            Constructor<? extends TvLayoutManager> constructor =
-                    clazz.getConstructor(sConstructorSignature);
-
-            sConstructorArgs[0] = context;
-            sConstructorArgs[1] = attrs;
-
-            setLayoutManager(constructor.newInstance(sConstructorArgs));
-        } catch (Exception e) {
-            throw new IllegalStateException("Could not load TwoWayLayoutManager from " +
-                                             "class: " + name, e);
-        }
-    }
+   
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
@@ -221,11 +177,7 @@ public class TvRecyclerView extends RecyclerView {
 //        Log.i(LOGTAG, "onMeasure: ");
     }
 
-    @Override
-    public void setLayoutManager(LayoutManager layout) {
-        mIsBaseLayoutManager = layout instanceof BaseLayoutManager;
-        super.setLayoutManager(layout);
-    }
+  
 
     @Override
     public void setAdapter(final Adapter adapter) {
@@ -234,8 +186,10 @@ public class TvRecyclerView extends RecyclerView {
         //修复重新setAdapter后第一条被遮挡的问题
         View view = getChildAt(0);
         if(null != view && null != getAdapter()) {
+        	
             int start = isVertical() ? getLayoutManager().getDecoratedTop(view) : getLayoutManager().getDecoratedLeft(view);
             start -= isVertical() ? getPaddingTop() : getPaddingLeft();
+            Log.d(TAG,"start---"+start);
             scrollBy(start, start);
         }
         
@@ -394,10 +348,7 @@ public class TvRecyclerView extends RecyclerView {
     }
 
     public boolean isVertical() {
-        if(mIsBaseLayoutManager) {
-            BaseLayoutManager layout = (BaseLayoutManager) getLayoutManager();
-            return layout.isVertical();
-        } else if (getLayoutManager() instanceof LinearLayoutManager) {
+        if (getLayoutManager() instanceof LinearLayoutManager) {
             LinearLayoutManager layout = (LinearLayoutManager) getLayoutManager();
             return layout.getOrientation() == LinearLayoutManager.VERTICAL;
         }
@@ -546,12 +497,7 @@ public class TvRecyclerView extends RecyclerView {
      * @return
      */
     private boolean cannotScrollForwardOrBackward(int value) {
-        if(mIsBaseLayoutManager) {
-            final BaseLayoutManager layoutManager = (BaseLayoutManager) getLayoutManager();
-            return (layoutManager.cannotScrollBackward(value)
-                    || layoutManager.cannotScrollForward(value));
-               
-        }
+      
         return false;
     }
     
@@ -564,10 +510,7 @@ public class TvRecyclerView extends RecyclerView {
     public void setSpacingWithMargins(int verticalSpacing, int horizontalSpacing) {
         this.mVerticalSpacingWithMargins = verticalSpacing;
         this.mHorizontalSpacingWithMargins = horizontalSpacing;
-        if(mIsBaseLayoutManager) {
-            BaseLayoutManager layout = (BaseLayoutManager) getLayoutManager();
-            layout.setSpacingWithMargins(verticalSpacing, horizontalSpacing);
-        }
+       
         adjustPadding();
     }
 
@@ -586,34 +529,7 @@ public class TvRecyclerView extends RecyclerView {
         }
     }
     
-    public TvLayoutManager.Orientation getOrientation() {
-        if(mIsBaseLayoutManager) {
-            final BaseLayoutManager layout = (BaseLayoutManager) getLayoutManager();
-            return layout.getOrientation();
-        } 
-        else if(getLayoutManager() instanceof LinearLayoutManager) {
-            final LinearLayoutManager layout = (LinearLayoutManager) getLayoutManager();
-            return layout.getOrientation() == LinearLayoutManager.HORIZONTAL 
-                    ? BaseLayoutManager.Orientation.HORIZONTAL 
-                    : BaseLayoutManager.Orientation.VERTICAL;
-        }
-        else {
-            return BaseLayoutManager.Orientation.VERTICAL;
-        }
-    }
-
-    public void setOrientation(TvLayoutManager.Orientation orientation) {
-        if(mIsBaseLayoutManager) {
-            final BaseLayoutManager layout = (BaseLayoutManager) getLayoutManager();
-            layout.setOrientation(orientation);
-        } 
-        else if(getLayoutManager() instanceof LinearLayoutManager) {
-            final LinearLayoutManager layout = (LinearLayoutManager) getLayoutManager();
-            layout.setOrientation(orientation == BaseLayoutManager.Orientation.HORIZONTAL 
-                    ? LinearLayoutManager.HORIZONTAL : LinearLayoutManager.VERTICAL);
-        }
-    }
-
+    
     public int getFirstVisiblePosition() {
         if(getChildCount() == 0)
             return 0;
@@ -634,11 +550,7 @@ public class TvRecyclerView extends RecyclerView {
     }
     
     public void scrollToPositionWithOffset(int position, int offset) {
-        if(mIsBaseLayoutManager) {
-            BaseLayoutManager layout = (BaseLayoutManager) getLayoutManager();
-            layout.scrollToPositionWithOffset(position, offset);
-            return;
-        } else if (getLayoutManager() instanceof LinearLayoutManager) {
+         if (getLayoutManager() instanceof LinearLayoutManager) {
             ((LinearLayoutManager)getLayoutManager()).scrollToPositionWithOffset(position, offset);
             return;
         }
@@ -897,125 +809,9 @@ public class TvRecyclerView extends RecyclerView {
         return true;
     }
 
-    @Override
-    protected Parcelable onSaveInstanceState() {
-       // RecyclerView.SavedState superSavedState = (RecyclerView.SavedState) super.onSaveInstanceState();
-       // ISavedState savedState = new ISavedState(superSavedState.getSuperState());
-       
-    	Parcelable superSavedState = super.onSaveInstanceState();
-        ISavedState savedState = new ISavedState(superSavedState);
-        
-    	
-    	savedState.mISuperState = superSavedState;
-        savedState.mSelectedPosition = mSelectedPosition;
-        savedState.mPreSelectedPosition = mPreSelectedPosition;
-        savedState.mVerticalSpacingWithMargins = mVerticalSpacingWithMargins;
-        savedState.mHorizontalSpacingWithMargins = mHorizontalSpacingWithMargins;
-        savedState.mSelectedItemOffsetStart = mSelectedItemOffsetStart;
-        savedState.mSelectedItemOffsetEnd = mSelectedItemOffsetEnd;
-        savedState.mSelectedItemCentered = mSelectedItemCentered;
-        savedState.mIsBaseLayoutManager = mIsBaseLayoutManager;
-        savedState.mIsInterceptKeyEvent = mIsInterceptKeyEvent;
-       
-        savedState.mHasMore = mHasMore;
-        savedState.mIsSelectFirstVisiblePosition = mIsSelectFirstVisiblePosition;
-        return savedState;
-    }
+   
 
-    @Override
-    protected void onRestoreInstanceState(Parcelable state) {
-        if(null != state) {
-            if(state instanceof ISavedState) {
-                ISavedState savedState = (ISavedState) state;
-                mSelectedPosition = savedState.mSelectedPosition;
-                mPreSelectedPosition = savedState.mPreSelectedPosition;
-                mVerticalSpacingWithMargins = savedState.mVerticalSpacingWithMargins;
-                mHorizontalSpacingWithMargins = savedState.mHorizontalSpacingWithMargins;
-                mSelectedItemOffsetStart = savedState.mSelectedItemOffsetStart;
-                mSelectedItemOffsetEnd = savedState.mSelectedItemOffsetEnd;
-                mSelectedItemCentered = savedState.mSelectedItemCentered;
-                mIsBaseLayoutManager = savedState.mIsBaseLayoutManager;
-                mIsInterceptKeyEvent = savedState.mIsInterceptKeyEvent;
-              
-                mHasMore = savedState.mHasMore;
-                mIsSelectFirstVisiblePosition = savedState.mIsSelectFirstVisiblePosition;
-                try {
-                    super.onRestoreInstanceState(savedState.mISuperState);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            } else {
-                super.onRestoreInstanceState(state);
-            }
-        }
-    }
 
-    protected static class ISavedState extends android.view.View.BaseSavedState {
-        private int mSelectedPosition;
-        private int mPreSelectedPosition;
-        private int mVerticalSpacingWithMargins;
-        private int mHorizontalSpacingWithMargins;
-        private int mSelectedItemOffsetStart;
-        private int mSelectedItemOffsetEnd;
-        private boolean mSelectedItemCentered;
-        private boolean mIsBaseLayoutManager;
-        private boolean mIsInterceptKeyEvent;
-        private boolean mIsMenu;
-        private boolean mHasMore;
-        private boolean mIsSelectFirstVisiblePosition;
-        private Parcelable mISuperState;
-
-        protected ISavedState(Parcelable superState) {
-            super(superState);
-        }
-
-        protected ISavedState(Parcel in) {
-            super(in);
-            mISuperState = in.readParcelable(RecyclerView.class.getClassLoader());
-            mSelectedPosition = in.readInt();
-            mPreSelectedPosition = in.readInt();
-            mVerticalSpacingWithMargins = in.readInt();
-            mHorizontalSpacingWithMargins = in.readInt();
-            mSelectedItemOffsetStart = in.readInt();
-            mSelectedItemOffsetEnd = in.readInt();
-            boolean[] booleens = new boolean[6];
-            in.readBooleanArray(booleens);
-            mSelectedItemCentered = booleens[0];
-            mIsBaseLayoutManager = booleens[1];
-            mIsInterceptKeyEvent = booleens[2];
-            mIsMenu = booleens[3];
-            mHasMore = booleens[4];
-            mIsSelectFirstVisiblePosition = booleens[5];
-        }
-
-        @Override
-        public void writeToParcel(Parcel out, int flags) {
-            super.writeToParcel(out, flags);
-            out.writeParcelable(mISuperState, 0);
-            out.writeInt(mSelectedPosition);
-            out.writeInt(mPreSelectedPosition);
-            out.writeInt(mVerticalSpacingWithMargins);
-            out.writeInt(mHorizontalSpacingWithMargins);
-            out.writeInt(mSelectedItemOffsetStart);
-            out.writeInt(mSelectedItemOffsetEnd);
-            boolean[] booleens = {mSelectedItemCentered, mIsBaseLayoutManager,
-                    mIsInterceptKeyEvent, mIsMenu, mHasMore, mIsSelectFirstVisiblePosition};
-            out.writeBooleanArray(booleens);
-        }
-
-        public static final Creator<ISavedState> CREATOR
-                = new Creator<ISavedState>() {
-            @Override
-            public ISavedState createFromParcel(Parcel in) {
-                return new ISavedState(in);
-            }
-
-            @Override
-            public ISavedState[] newArray(int size) {
-                return new ISavedState[size];
-            }
-        };
-    }
 
     public void setOnItemListener(OnItemListener onItemListener) {
         mOnItemListener = onItemListener;

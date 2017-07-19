@@ -36,7 +36,13 @@
             android:name="com.zzl.demo.LinearLayoutActivity"
          ></activity>
         
-      
+       <activity  
+            android:name="com.zzl.demo.GridLayoutActivity"
+         ></activity>
+       
+        <activity  
+            android:name="com.zzl.demo.StaggeredGridActivity"
+         ></activity>
     </application>
 
 </manifest>

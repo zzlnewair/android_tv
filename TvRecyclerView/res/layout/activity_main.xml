@@ -11,24 +11,23 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:clipChildren="false"
-        android:clipToPadding="false">
+        android:clipToPadding="false"
+       
+        >
         
     <com.zzl.recyclerview.TvRecyclerView
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/trv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingTop="20dp"
         style="@style/TwoWayView"
         android:orientation="vertical"
-        app:tv_layoutManager="ListLayoutManager"
-            
-        android:padding="10dp"
+     
+        
      /> 
    
-    <com.zzl.recyclerview.animeffect.MainUpView
-        android:id="@+id/mainUpView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+   
     
      </FrameLayout>
     

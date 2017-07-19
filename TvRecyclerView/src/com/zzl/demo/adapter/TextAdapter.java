@@ -18,22 +18,18 @@ import java.util.List;
 
 import com.bumptech.glide.Glide;
 import com.zzl.recyclerview.R;
-import com.zzl.recyclerview.TvLayoutManager.Orientation;
-import com.zzl.recyclerview.TvRecyclerView;
+
 
 public class TextAdapter extends RecyclerView.Adapter<TextAdapter.SimpleViewHolder> {
     private static final int COUNT = 30;
 
     private final Context mContext;
-    private final TvRecyclerView mRecyclerView;
-    private final List<Integer> mItems;
-    private final int mLayoutId;
-    private int mCurrentItemId = 0;
-
+    private List<String> mlist ;
+    
+    private  int mLayoutId;
     public static class SimpleViewHolder extends RecyclerView.ViewHolder {
         public final TextView title;
       
-
         public SimpleViewHolder(View view) {
             super(view);
             title = (TextView) view.findViewById(R.id.tv_example);
@@ -41,68 +37,33 @@ public class TextAdapter extends RecyclerView.Adapter<TextAdapter.SimpleViewHold
         }
     }
 
-    public TextAdapter(Context context, TvRecyclerView recyclerView, int layoutId) {
-        mContext = context;
-        mItems = new ArrayList<Integer>(COUNT);
-        for (int i = 0; i < COUNT; i++) {
-            addItem(i);
-        }
-
-        mRecyclerView = recyclerView;
-        mLayoutId = layoutId;
+    public TextAdapter(Context context, List<String> mlist ,int layoutId) {
+        this.mContext = context;
+        this.mlist = mlist;
+        this.mLayoutId = layoutId;
+        
     }
     
-    public void appendDatas() {
-        Log.i("@@@@", "appendDatas: ");
-        mRecyclerView.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                for (int i = 0; i < 20; i++) {
-                    final int id = mCurrentItemId++;
-                    mItems.add(id);
-                }
-                notifyItemRangeInserted(mCurrentItemId, 20);
-            }
-        }, 1000);
-    }
-
-    public void addItem(int position) {
-        final int id = mCurrentItemId++;
-        mItems.add(position, id);
-        notifyItemInserted(position);
-    }
-
-    public void removeItem(int position) {
-        mItems.remove(position);
-        notifyItemRemoved(position);
-    }
+    
 
     @Override
     public SimpleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        final View view = LayoutInflater.from(mContext).inflate(R.layout.item_main_example, parent, false);
+        final View view = LayoutInflater.from(mContext).inflate(mLayoutId, parent, false);
         return new SimpleViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(SimpleViewHolder holder, final int position) {
-        holder.title.setText(mItems.get(position).toString());
-//       Glide.with(mContext)
-//               .load("http://img.pconline.com.cn/images/upload/upc/tx/photoblog/1503/17/c2/3974346_1426551981202_mthumb.jpg")
-//               .into(holder.image);
-       
-        boolean isVertical = (mRecyclerView.getOrientation() == Orientation.HORIZONTAL);
-       // final View itemView = holder.itemView;
-       // final int itemId = mItems.get(position);
+        holder.title.setText(mlist.get(position).toString());
+
 
        
     }
 
     @Override
     public int getItemCount() {
-        return mItems.size();
+        return mlist.size();
     }
     
-    public interface OnItemSelectedListenner {
-        void onSelected(View view, int positin);
-    }
+  
 }
