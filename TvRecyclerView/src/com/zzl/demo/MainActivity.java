@@ -28,14 +28,14 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
 
 	private static final String[] mDatas = { "LinearLayout水平",
-			"LinearLayout垂直", "GridLayout水平", "GridLayout>垂直",
+			"LinearLayout垂直", "GridLayout水平", "GridLayout垂直",
 			"StaggeredGridLayout水平", "StaggeredGridLayout垂直", };
 
 	List<String> mlist = new ArrayList<String>();
 
 	protected static final String TAG = "MainActivity";
 	private TvRecyclerView mTvList;
-	// private MenuAdapter mAdapter;
+	
 	private TextAdapter mLayoutAdapter;
 
 	private LinearLayoutManager mManager;
@@ -77,7 +77,7 @@ public class MainActivity extends Activity {
 
 		border.attachTo(mTvList);
 
-		// mTvList.setSpacingWithMargins(18, 18);
+	
 		mTvList.setOnItemListener(new TvRecyclerView.OnItemListener() {
 
 			@Override
