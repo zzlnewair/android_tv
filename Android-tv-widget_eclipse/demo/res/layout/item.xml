@@ -1,50 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/w_200"
-    android:layout_height="@dimen/w_300"
-    
-   
+    android:layout_width="160dp"
+    android:layout_height="200dp"
+    android:layout_gravity="center"
+    android:layout_margin="12dp"
     android:focusable="true"
-    android:gravity="center"
     
-    >
-    
-    <RelativeLayout
-        android:id="@+id/posterRelativeLayout"
-      
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        
-        >
-    
-        
+    android:gravity="center">
     <ImageView
         android:id="@+id/poster"
-        android:src="@drawable/grid_view_item_test"
-        android:scaleType="fitXY"
-        
-        android:layout_width="@dimen/w_200"
-        android:layout_height="@dimen/w_250" />
- 
+        android:src="@drawable/poster"
+        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
     <TextView
+        
         android:id="@+id/textView"
-        android:layout_width="@dimen/w_200"
-        android:layout_height="@dimen/w_50"
-        android:layout_below="@+id/poster"
-       
-        android:layout_marginBottom="@dimen/w_10"
-        android:layout_marginTop="@dimen/w_10"
-        android:ellipsize="marquee"
-        android:singleLine="true"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center|bottom"
         android:focusable="false"
-       
-        android:textColor="@android:color/darker_gray"
-        android:textSize="15sp" 
-        android:text="电影111"
+        android:gravity="center|bottom"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="20sp" 
+        android:text="item"
         />
 
-     </RelativeLayout>
 </FrameLayout>

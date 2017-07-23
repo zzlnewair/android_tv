@@ -242,37 +242,32 @@ public class DemoTwoRecyclerViewActivity extends Activity {
 			}
 		});
 		
-		recyclerViewMovie.setOnKeyListener(new OnKeyListener() {
-
-	            @Override
-	            public boolean onKey(View v, int keyCode, KeyEvent event) {
-	                int eventAction = event.getAction();
-	                LogUtils.d("", "recyclerViewMovie.onKey==="+keyCode);
-	                switch (eventAction) {
-	                    case KeyEvent.ACTION_DOWN: {
-	                    	LogUtils.d("", "recyclerViewMovie.onKey");
-	                        if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
-	                            if (mIsGridViewInMaxLeft) {
-	                            	
-	                            	LogUtils.d(TAG,"listViewSelectItem=setSelection="+listViewSelectItem);
-	                              
-	                            	subjectTitlesListView.requestFocusFromTouch();
-	     
-	                                subjectTitlesListView.setSelection(listViewSelectItem);
-
-	                                
-	                                return true;
-	                            }
-	                        }
-	                    }
-	                    default:
-	                        break;
-	                }
-	                return false;
-	            }
-	        });
+	
 		
-		
+	}
+
+	
+	
+	
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		// TODO Auto-generated method stub
+		 if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
+             if (mIsGridViewInMaxLeft) {
+             	
+             	LogUtils.d(TAG,"listViewSelectItem=setSelection="+listViewSelectItem);
+               
+             	subjectTitlesListView.requestFocusFromTouch();
+
+                 subjectTitlesListView.setSelection(listViewSelectItem);
+
+                 
+                 return true;
+             }
+         }
+		 
+		return super.onKeyDown(keyCode, event);
 	}
 
 	private void createData1(int num) {
