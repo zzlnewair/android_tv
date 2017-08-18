@@ -22,6 +22,10 @@ public abstract class BaseActivity extends Activity {
 	private MainUpView mainUpView1;
     private RecyclerViewBridge mRecyclerViewBridge;
     private View oldView;
+    protected View load_more_pb;
+    
+ 
+    
     
     
 	@Override
@@ -62,6 +66,7 @@ public abstract class BaseActivity extends Activity {
 	protected void initView() {
 
 		mTvRecyclerView = ((RecyclerViewTV) findViewById(R.id.trv));
+		load_more_pb = findViewById(R.id.load_more_pb);
 
 		mTvRecyclerView.setOnItemListener(getItemListener());
 		mTvRecyclerView.setOnItemClickListener(getItemClickListener());
@@ -103,7 +108,7 @@ public abstract class BaseActivity extends Activity {
 			public void onItemSelected(RecyclerViewTV parent, View itemView,
 					int position) {
 				// TODO Auto-generated method stub
-				 mRecyclerViewBridge.setFocusView(itemView, 1.2f);
+				 mRecyclerViewBridge.setFocusView(itemView, 1.1f);
 		         oldView = itemView;
 			}
 
@@ -111,7 +116,7 @@ public abstract class BaseActivity extends Activity {
 			public void onReviseFocusFollow(RecyclerViewTV parent,
 					View itemView, int position) {
 				// TODO Auto-generated method stub
-				  mRecyclerViewBridge.setFocusView(itemView, 1.2f);
+				  mRecyclerViewBridge.setFocusView(itemView, 1.1f);
 		          oldView = itemView;
 			}
 

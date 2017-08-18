@@ -25,7 +25,14 @@ public class StaggeredGridActivity extends BaseActivity {
 	protected LayoutManager getLayoutManager() {
 		// TODO Auto-generated method stub
 		if ("0".equals(mIsVertical)) {
-			return new StaggeredGridLayoutManager(2,
+			
+			ViewGroup.LayoutParams layoutParams =
+	                    mTvRecyclerView.getLayoutParams();
+	            layoutParams.height =  700;
+	            
+	            mTvRecyclerView.setLayoutParams(layoutParams);
+	            
+			return new StaggeredGridLayoutManager(3,
 					StaggeredGridLayoutManager.HORIZONTAL);
 		} else {
 			
