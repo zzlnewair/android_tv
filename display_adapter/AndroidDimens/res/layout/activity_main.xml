@@ -1,0 +1,34 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+  
+    tools:context="com.zzl.dimen.MainActivity" >
+
+    <TextView
+        android:id="@+id/hello"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/h_100"
+   		android:layout_centerHorizontal="true"
+        android:text="@string/hello_world" 
+        android:layout_marginTop="@dimen/h_200"
+        />
+    
+     <Button
+        android:id="@+id/button"
+        android:layout_width="@dimen/w_200"
+        android:layout_height="@dimen/h_200"
+        android:layout_marginLeft="@dimen/w_540"
+        android:layout_marginTop="@dimen/h_260"
+        android:text="@string/hello_world" />
+     
+      <TextView
+        android:id="@+id/tv_dimen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+   		android:layout_below="@+id/button"
+   		android:layout_centerHorizontal="true"
+        android:text="" 
+        />
+
+</RelativeLayout>
