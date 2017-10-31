@@ -24,10 +24,7 @@ public abstract class BaseActivity extends Activity {
     private View oldView;
     protected View load_more_pb;
     
- 
-    
-    
-    
+
 	@Override
 	protected void onCreate( Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
@@ -41,7 +38,7 @@ public abstract class BaseActivity extends Activity {
 	
 
 	protected int getContentResource() {
-		return R.layout.activity_main;
+		return R.layout.activity_example;
 	}
 	
 	protected void initData() {
@@ -73,8 +70,7 @@ public abstract class BaseActivity extends Activity {
 		mTvRecyclerView.setLayoutManager(getLayoutManager());
 
 		mTvRecyclerView.setAdapter(getAdapter());
-	//	mAdapter = new LayoutAdapter(getApplicationContext(), mDatas);
-	//	mTvRecyclerView.setAdapter(mAdapter);
+	
 
 	}
 	
@@ -108,7 +104,7 @@ public abstract class BaseActivity extends Activity {
 			public void onItemSelected(RecyclerViewTV parent, View itemView,
 					int position) {
 				// TODO Auto-generated method stub
-				 mRecyclerViewBridge.setFocusView(itemView, 1.1f);
+				 mRecyclerViewBridge.setFocusView(itemView, 1.2f);
 		         oldView = itemView;
 			}
 
@@ -116,7 +112,7 @@ public abstract class BaseActivity extends Activity {
 			public void onReviseFocusFollow(RecyclerViewTV parent,
 					View itemView, int position) {
 				// TODO Auto-generated method stub
-				  mRecyclerViewBridge.setFocusView(itemView, 1.1f);
+				  mRecyclerViewBridge.setFocusView(itemView, 1.2f);
 		          oldView = itemView;
 			}
 

@@ -23,7 +23,7 @@ public class GridLayoutActivity extends BaseActivity {
 	RecyclerViewPresenter mRecyclerViewPresenter;
 	 GeneralAdapter mGeneralAdapter;
 	    
-	 private int mSavePos = 0;
+	 private int mSavePos = 2;
 	    
 	 Handler moreHandler = new Handler() {
 	        @Override
@@ -76,7 +76,7 @@ public class GridLayoutActivity extends BaseActivity {
 		  if ("0".equals(mIsVertical)) {
 	            return new GridLayoutManagerTV(this, 2,LinearLayoutManager.HORIZONTAL, false);
 	        } else {
-	            return new GridLayoutManagerTV(this, 6,LinearLayoutManager.VERTICAL, false);
+	            return new GridLayoutManagerTV(this, 5,LinearLayoutManager.VERTICAL, false);
 	        }
 	}
 

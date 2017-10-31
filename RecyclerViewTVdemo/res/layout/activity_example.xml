@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/lightskyblue"
-   
+    android:gravity="center"
     tools:context="com.zzl.recyclerviewtv.demo.MainActivity" >
 
     
@@ -11,18 +11,25 @@
         
     xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/trv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+     
+         android:orientation="vertical"
         android:scrollbars = "none"
         android:clipToPadding ="false"
         android:padding ="@dimen/h_30"
-        android:layout_centerInParent="true"
-        android:gravity="center"
+      
         
      /> 
      
-   
+    <ProgressBar
+                android:id="@+id/load_more_pb"
+                android:layout_gravity="right"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/h_70"
+                android:layout_width="@dimen/h_70"
+                android:layout_height="@dimen/h_70" />
+    
        <com.zzl.view.mainupview.MainUpView
         android:id="@+id/mainUpView1"
         android:layout_width="wrap_content"

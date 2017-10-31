@@ -57,7 +57,7 @@ public class StaggeredGridPresenter extends OpenPresenter {
 
 	    @Override
 	    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-	        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false);
+	        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_staggered, parent, false);
 	        return new GridViewHolder(view);
 	    }
 
@@ -77,12 +77,12 @@ public class StaggeredGridPresenter extends OpenPresenter {
 	        StaggeredGridLayoutManager.LayoutParams lp = (StaggeredGridLayoutManager.LayoutParams) itemView.getLayoutParams();
 	        if (orientation == StaggeredGridLayoutManager.HORIZONTAL) {
 	            if (position == 0 || position == 4) {
-	                lp.height =  420;
+	                lp.height =  320;
 	                lp.width =  220;
 	                lp.setFullSpan(true);
 	            } else if (position == 1) {
 	                lp.height = 200;
-	                lp.width =  420;
+	                lp.width =  320;
 	                lp.setFullSpan(false);
 	            } else {
 	                lp.height =  200;
