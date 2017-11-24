@@ -66,7 +66,7 @@ public class DuFrame extends JFrame {
 	}
 	
 	
-public String getSrcSize(){
+	public String getSrcSize(){
 		
 		return topLayout.getSrcSize();
 	}

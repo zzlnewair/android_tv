@@ -13,7 +13,7 @@ public class CenterLayout extends JPanel{
 	 */
 	private static final long serialVersionUID = -3503191094211761668L;
 
-	JCheckBox item1,item2,item3,item4,item5,item6,item7,item8,item9,item10,item11;
+	JCheckBox item1,item2,item3,item4,item5,item6,item7,item8,item9,item10,item11,item12,item13;
 	CenterLayout(){
 	
 		this.add(new JLabel("选择想要生成的目标尺寸:"));
@@ -34,6 +34,7 @@ public class CenterLayout extends JPanel{
 		//google 机型
 		item7 = new JCheckBox("1920x1080");
 		this.add(item7);
+		
 		item8 = new JCheckBox("2048x1440");
 		this.add(item8);
 		item9 = new JCheckBox("2048x1536");
@@ -44,8 +45,11 @@ public class CenterLayout extends JPanel{
 		item11 = new JCheckBox("2560x1600");
 		this.add(item11);
 		
+		item12 = new JCheckBox("3840x2160");
+		this.add(item12);
 		
-		
+		item13 = new JCheckBox("1920x1016");
+		this.add(item13);
 	}
 	
 	
@@ -91,6 +95,13 @@ public class CenterLayout extends JPanel{
 		}
 		if(item11.isSelected()){
 			String actionCommand = item11.getActionCommand();
+			lists.add(actionCommand);
+		}
+		if(item12.isSelected()){
+			String actionCommand = item12.getActionCommand();
+			lists.add(actionCommand);
+		}if(item13.isSelected()){
+			String actionCommand = item13.getActionCommand();
 			lists.add(actionCommand);
 		}
 	
