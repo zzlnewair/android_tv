@@ -144,4 +144,6 @@
     <color name="grassgreen">#99cc33</color><!--草绿色 -->
     <color name="gray_cc">#cccccc</color><!--灰色cc -->
     <color name="gray_8f">#8f8f8f</color><!--灰色8f -->
+    
+    <drawable name="transparent">#00000000</drawable>
 </resources>

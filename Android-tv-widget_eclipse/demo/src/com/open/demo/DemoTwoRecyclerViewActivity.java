@@ -18,6 +18,7 @@ import okhttp3.Request;
 
 
 import com.open.demo.adapter.ListViewAdapter;
+import com.open.demo.adapter.MovieAdapter;
 import com.open.demo.adapter.MyAdapter;
 import com.open.demo.http.OkHttpManager;
 import com.open.demo.http.OkHttpManager.DataCallBack;
@@ -69,7 +70,7 @@ public class DemoTwoRecyclerViewActivity extends Activity {
     private boolean mIsGridViewInMaxLeft = false;
 	
     RecyclerViewTV recyclerViewMovie;
-	MyAdapter recyclerViewMovieAdapter ;
+    MovieAdapter recyclerViewMovieAdapter ;
 	private final int MOVIE_COLUMNS = 6;
 	
 	final int FRFRESHSUCESS_WHAT = 1001;
@@ -114,8 +115,8 @@ public class DemoTwoRecyclerViewActivity extends Activity {
 
 		setContentView(R.layout.demo_two_recycler_view);
 
-		border = new BorderView(this);
-		border.setBackgroundResource(R.drawable.border_red);
+	//	border = new BorderView(this);
+	//	border.setBackgroundResource(R.drawable.border_red);
 		
 
 		
@@ -190,11 +191,11 @@ public class DemoTwoRecyclerViewActivity extends Activity {
 		recyclerViewMovie.setLayoutManager(gridlayoutManager);
 		recyclerViewMovie.setFocusable(false);
 
-		border.attachTo(recyclerViewMovie);
+		//border.attachTo(recyclerViewMovie);
 
 		MyItemDecoration	itemDecoration = new MyItemDecoration(0x00000000, DisplayUtil.dip2px(getApplicationContext(), 40), 0, OrientationType.VERTICAL);
 		// 创建Adapter，并指定数据集
-		recyclerViewMovieAdapter= new MyAdapter(getApplicationContext(), mDetailInfoList, R.layout.item);
+		recyclerViewMovieAdapter= new MovieAdapter(getApplicationContext(), mDetailInfoList, R.layout.movieitem);
 		// 设置Adapter
 		recyclerViewMovie.setAdapter(recyclerViewMovieAdapter);
 		recyclerViewMovie.scrollToPosition(0);

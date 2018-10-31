@@ -264,7 +264,7 @@
                     android:layout_gravity="bottom"
                     android:background="#FF0000"
                     android:gravity="center_vertical|center_horizontal"
-                    android:text="two way RecyclerView"
+                    android:text="电影RecyclerView放大"
                     android:textColor="#ffffff" />
             </com.open.androidtvwidget.view.ReflectItemView>  
 

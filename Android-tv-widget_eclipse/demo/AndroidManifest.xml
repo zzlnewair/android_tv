@@ -39,7 +39,7 @@
         <activity android:name="com.open.demo.DemoTwoRecyclerViewActivity"/>
         
         
-         <!-- Caution! Do not change this app key. It is only for demo usage. -->
+         
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="594e0fa35312dd14df000c2d" >
